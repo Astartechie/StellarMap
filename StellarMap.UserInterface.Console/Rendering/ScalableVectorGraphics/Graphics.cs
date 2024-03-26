@@ -13,30 +13,15 @@ namespace StellarMap.UserInterface.Console.Rendering.ScalableVectorGraphics
 
         public void DrawAndFillCircle(Point center, float radius, Pen pen, Brush brush)
         {
-            var svgCircle = new StringBuilder();
-            svgCircle.Append($"<circle cx=\"{center.X}\" cy=\"{center.Y}\" r=\"{radius}\"");
+            if (!IsVisible(pen, brush)) return;
 
-            if (pen != Pen.None)
-            {
-                svgCircle.Append($" stroke=\"{pen.Colour.ToHexCode()}\" stroke-width=\"{pen.Thickness}\"");
-            }
-            else
-            {
-                svgCircle.Append(" stroke=\"none\"");
-            }
+            var builder = new StringBuilder();
+            builder.Append($"<circle cx=\"{center.X}\" cy=\"{center.Y}\" r=\"{radius}\"");
 
-            if (brush != Brush.None)
-            {
-                svgCircle.Append($" fill=\"{brush.Colour.ToHexCode()}\"");
-            }
-            else
-            {
-                svgCircle.Append(" fill=\"none\"");
-            }
+            AddPenAndBrush(builder, pen, brush);
+            builder.Append("/>");
 
-            svgCircle.Append("/>");
-
-            writer.WriteLine(svgCircle.ToString());
+            writer.WriteLine(builder.ToString());
         }
 
         public void DrawRectangle(int x, int y, int width, int height, Pen pen)
@@ -47,30 +32,16 @@ namespace StellarMap.UserInterface.Console.Rendering.ScalableVectorGraphics
 
         public void DrawAndFillRectangle(int x, int y, int width, int height, Pen pen, Brush brush)
         {
-            var svgRectangle = new StringBuilder();
-            svgRectangle.Append($"<rect x=\"{x}\" y=\"{y}\" width=\"{width}\" height=\"{height}\"");
+            if (!IsVisible(pen, brush)) return;
 
-            if (pen != Pen.None)
-            {
-                svgRectangle.Append($" stroke=\"{pen.Colour.ToHexCode()}\" stroke-width=\"{pen.Thickness}\"");
-            }
-            else
-            {
-                svgRectangle.Append(" stroke=\"none\"");
-            }
+            var builder = new StringBuilder();
+            builder.Append($"<rect x=\"{x}\" y=\"{y}\" width=\"{width}\" height=\"{height}\"");
 
-            if (brush != Brush.None)
-            {
-                svgRectangle.Append($" fill=\"{brush.Colour.ToHexCode()}\"");
-            }
-            else
-            {
-                svgRectangle.Append(" fill=\"none\"");
-            }
+            AddPenAndBrush(builder, pen, brush);
 
-            svgRectangle.Append("/>");
+            builder.Append("/>");
 
-            writer.WriteLine(svgRectangle.ToString());
+            writer.WriteLine(builder.ToString());
         }
 
         public void DrawPolygon(IList<Point> points, Pen pen)
@@ -81,45 +52,55 @@ namespace StellarMap.UserInterface.Console.Rendering.ScalableVectorGraphics
 
         public void DrawAndFillPolygon(IList<Point> points, Pen pen, Brush brush)
         {
-            var svgPath = new StringBuilder();
+            if (!IsVisible(pen, brush)) return;
+
+            var builder = new StringBuilder();
             var count = 0;
-            svgPath.Append($"<path d=\"");
+            builder.Append($"<path d=\"");
 
             foreach (var point in points)
             {
                 if (count == 0)
                 {
-                    svgPath.Append("M ");
+                    builder.Append("M ");
                 }
 
-                svgPath.Append($"{point.X} {point.Y}");
-                svgPath.Append(count == 0 ? " L " : " ");
+                builder.Append($"{point.X} {point.Y}");
+                builder.Append(count == 0 ? " L " : " ");
                 count++;
             }
 
-            svgPath.Append("Z\"");
+            builder.Append("Z\"");
 
+            AddPenAndBrush(builder, pen, brush);
+
+            builder.Append("/>");
+
+            writer.WriteLine(builder.ToString());
+        }
+
+        private static bool IsVisible(Pen pen, Brush brush)
+            => pen != Pen.None || brush != Brush.None;
+
+        private static void AddPenAndBrush(StringBuilder builder, Pen pen, Brush brush)
+        {
             if (pen != Pen.None)
             {
-                svgPath.Append($" stroke=\"{pen.Colour.ToHexCode()}\" stroke-width=\"{pen.Thickness}\"");
+                builder.Append($" stroke=\"{pen.Colour.ToHexCode()}\" stroke-width=\"{pen.Thickness}\"");
             }
             else
             {
-                svgPath.Append(" stroke=\"none\"");
+                builder.Append(" stroke=\"none\"");
             }
 
             if (brush != Brush.None)
             {
-                svgPath.Append($" fill=\"{brush.Colour.ToHexCode()}\"");
+                builder.Append($" fill=\"{brush.Colour.ToHexCode()}\"");
             }
             else
             {
-                svgPath.Append(" fill=\"none\"");
+                builder.Append(" fill=\"none\"");
             }
-
-            svgPath.Append("/>");
-
-            writer.WriteLine(svgPath.ToString());
         }
     }
 }
