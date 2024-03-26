@@ -6,15 +6,13 @@ internal class RenderTarget(IWriter writer) : IRenderTarget
 {
     public IGraphics Start(int width, int height)
     {
-        _writer.WriteLine($"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"{width}\" height=\"{height}\" viewBox=\"0 0 {width} {height} \">");
-        return new Graphics(_writer);
+        writer.WriteLine($"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"{width}\" height=\"{height}\" viewBox=\"0 0 {width} {height} \">");
+        return new Graphics(writer);
     }
 
     public void End()
     {
-        _writer.WriteLine("</svg>");
-        _writer.Save();
+        writer.WriteLine("</svg>");
+        writer.Save();
     }
-
-    private readonly IWriter _writer = writer;
 }
