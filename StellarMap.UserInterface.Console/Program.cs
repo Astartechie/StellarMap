@@ -38,17 +38,19 @@ internal class Program
 
         serviceCollection.AddSingleton<IGenerator<int, (int, int)>>(new RandomWrapper<int, (int, int)>(random, (r, range) => r.Next(range.Item1, range.Item2)));
 
-
         serviceCollection.AddSingleton<IGenerator<Weighting>, WeightingGenerator>();
 
-        serviceCollection.AddSingleton<IGenerator<StarId>, StarIdGenerator>();
-        serviceCollection.AddSingleton<IGenerator<Name>, StarNameGenerator>();
-        serviceCollection.AddSingleton<IGenerator<StarClassification>, StarClassificationGenerator>();
-        serviceCollection.AddSingleton<IGenerator<StarSize, StarClassification>, StarSizeGenerator>();
-        serviceCollection.AddSingleton<IGenerator<Star>, StarGenerator>();
+        serviceCollection.AddSingleton<IStarIdGenerator, StarIdGenerator>();
+        serviceCollection.AddSingleton<IStarNameGenerator, StarNameGenerator>();
+        serviceCollection.AddSingleton<IStarClassificationGenerator, StarClassificationGenerator>();
+        serviceCollection.AddSingleton<IStarSizeGenerator, StarSizeGenerator>();
+        serviceCollection.AddSingleton<IStarGenerator, StarGenerator>();
 
-        serviceCollection.AddSingleton(new HexagonalGridGenerator.Settings(radius, hexSize));
-        serviceCollection.AddSingleton<IGenerator<HexagonalGrid>, HexagonalGridGenerator>();
+        serviceCollection.AddSingleton(new StellarNoise.Settings(radius, hexSize));
+        serviceCollection.AddSingleton<IStellarNoise, StellarNoise>();
+
+        serviceCollection.AddSingleton(new HexagonalGridGenerator.Settings(radius));
+        serviceCollection.AddSingleton<IHexagonalGridGenerator, HexagonalGridGenerator>();
 
         serviceCollection.AddSingleton<IReader<StarClassificationProvider>>(new FileWrapper<StarClassificationProvider>("Star Classifications.csv"));
         serviceCollection.AddSingleton<IProvider<WeightedList<StarClassification>>, StarClassificationProvider>();
@@ -62,7 +64,7 @@ internal class Program
         serviceCollection.AddSingleton<IRenderer<HexagonalGrid>, HexagonalGridRenderer>();
 
         var serviceProvider = serviceCollection.BuildServiceProvider();
-        var generator = serviceProvider.GetService<IGenerator<HexagonalGrid>>();
+        var generator = serviceProvider.GetService<IHexagonalGridGenerator>();
         var grid = generator.Generate();
 
         var gridRenderer = serviceProvider.GetService<IRenderer<HexagonalGrid>>();

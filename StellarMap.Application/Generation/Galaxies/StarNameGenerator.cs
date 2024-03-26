@@ -7,7 +7,7 @@ public class StarNameGenerator(
     IGenerator<int, (int, int)> intGenerator,
     IGenerator<Weighting> weightingGenerator,
     IProvider<MarkovChain<char>> markovChainProvider
-) : IGenerator<Name>
+) : IStarNameGenerator
 {
     private static readonly (int, int) NameLengthRange = new(2, 4);
     private const char StartingCharacter = (char)0;

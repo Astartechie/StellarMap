@@ -5,7 +5,7 @@ namespace StellarMap.Application.Generation.Galaxies;
 public class StarClassificationGenerator(
     IGenerator<Weighting> weightingGenerator,
     IProvider<WeightedList<StarClassification>> starClassificationProvider
-) : IGenerator<StarClassification>
+) : IStarClassificationGenerator
 {
     public StarClassification Generate()
     {

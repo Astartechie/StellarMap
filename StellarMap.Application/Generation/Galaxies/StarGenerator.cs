@@ -5,11 +5,11 @@ namespace StellarMap.Application.Generation.Galaxies;
 
 public class StarGenerator(
     ILogger<StarGenerator> logger,
-    IGenerator<StarId> starIdGenerator,
-    IGenerator<Name> starNameGenerator,
-    IGenerator<StarClassification> starClassificationGenerator,
-    IGenerator<StarSize, StarClassification> starSizeGenerator
-) : IGenerator<Star>
+    IStarIdGenerator starIdGenerator,
+    IStarNameGenerator starNameGenerator,
+    IStarClassificationGenerator starClassificationGenerator,
+    IStarSizeGenerator starSizeGenerator
+) : IStarGenerator
 {
     public Star Generate()
     {

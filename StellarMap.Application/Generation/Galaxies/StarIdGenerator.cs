@@ -2,7 +2,7 @@
 
 namespace StellarMap.Application.Generation.Galaxies;
 
-public class StarIdGenerator(IGenerator<Guid> guidGenerator) : IGenerator<StarId>
+public class StarIdGenerator(IGenerator<Guid> guidGenerator) : IStarIdGenerator
 {
     public StarId Generate()
         => StarId.Create(guidGenerator.Generate());
