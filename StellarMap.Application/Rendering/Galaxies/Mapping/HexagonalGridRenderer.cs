@@ -1,6 +1,5 @@
 ﻿using StellarMap.Domain.Galaxies;
 using StellarMap.Domain.Galaxies.Mapping;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace StellarMap.Application.Rendering.Galaxies.Mapping;
 

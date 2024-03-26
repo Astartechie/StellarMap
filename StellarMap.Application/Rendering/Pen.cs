@@ -7,7 +7,10 @@ public class Pen : ValueObject<Pen>
 {
     private const float MinimumThickness = 0;
 
-    public static readonly Pen None = new(0, Colour.Defined.None);
+    public static class Defined
+    {
+        public static readonly Pen None = new(0, Colour.Defined.None);
+    }
 
     public static Pen Create(float thickness, Colour colour)
         => thickness < MinimumThickness
