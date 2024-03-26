@@ -51,7 +51,7 @@ internal class Program(IHexagonalGridGenerator hexagonalGridGenerator, IRenderer
         serviceCollection.AddSingleton<IHexagonalGridGenerator, HexagonalGridGenerator>();
 
         //Providers
-        serviceCollection.AddSingleton<IReader<StarClassificationProvider>>(new FileWrapper<StarClassificationProvider>("Star Classifications.csv"));
+        serviceCollection.AddSingleton<IReader<StarClassificationProvider>>(new FileWrapper<StarClassificationProvider>("Assets\\Star Classifications.csv"));
         serviceCollection.AddSingleton<IProvider<WeightedList<StarClassification>>, StarClassificationProvider>();
 
         serviceCollection.AddSingleton<IWriter>(new TextFileWriter("test.svg"));
