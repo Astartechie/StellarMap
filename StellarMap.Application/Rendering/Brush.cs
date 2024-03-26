@@ -5,7 +5,11 @@ namespace StellarMap.Application.Rendering;
 
 public class Brush : ValueObject<Brush>
 {
-    public static Brush None = new(Colour.Defined.None);
+    public static class Defined
+    {
+        public static Brush None = new(Colour.Defined.None);
+    }
+
 
     public static Brush Create(Colour colour)
         => new(colour);
