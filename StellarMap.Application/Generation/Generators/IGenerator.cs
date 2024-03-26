@@ -1,4 +1,4 @@
-﻿namespace StellarMap.Application.Generation;
+﻿namespace StellarMap.Application.Generation.Generators;
 
 public interface IGenerator<out TOut>
 {

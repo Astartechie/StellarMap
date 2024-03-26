@@ -1,10 +1,11 @@
 ﻿using System.Drawing;
-using StellarMap.Application.Generation.Galaxies;
+using StellarMap.Application.Generation.Generators;
+using StellarMap.Application.Generation.Generators.Galaxies;
 using StellarMap.Domain.Galaxies.Mapping;
 
 namespace StellarMap.Application.Generation;
 
-public class StellarNoise(IGenerator<double> doubleGenerator, StellarNoise.Settings settings) : IStellarNoise
+public class StellarNoise(IRandomDoubleGenerator doubleGenerator, StellarNoise.Settings settings) : IStellarNoise
 {
     public class Settings(int radius, float hexSize)
     {

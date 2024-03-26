@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using StellarMap.Domain.Galaxies;
 
-namespace StellarMap.Application.Generation.Galaxies;
+namespace StellarMap.Application.Generation.Generators.Galaxies;
 
 public class StarGenerator(
     ILogger<StarGenerator> logger,

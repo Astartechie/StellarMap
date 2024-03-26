@@ -1,6 +1,7 @@
-﻿using StellarMap.Domain.Galaxies;
+﻿using StellarMap.Application.Generation.Generators;
+using StellarMap.Domain.Galaxies;
 
-namespace StellarMap.Application.Generation.Galaxies;
+namespace StellarMap.Application.Generation.Generators.Galaxies;
 
 public class StarClassificationGenerator(
     IGenerator<Weighting> weightingGenerator,

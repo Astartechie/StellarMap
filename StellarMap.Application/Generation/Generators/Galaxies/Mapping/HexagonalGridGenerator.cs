@@ -1,7 +1,8 @@
-﻿using StellarMap.Domain.Galaxies;
+﻿using StellarMap.Application.Generation.Generators.Galaxies;
+using StellarMap.Domain.Galaxies;
 using StellarMap.Domain.Galaxies.Mapping;
 
-namespace StellarMap.Application.Generation.Galaxies.Mapping;
+namespace StellarMap.Application.Generation.Generators.Galaxies.Mapping;
 
 public class HexagonalGridGenerator(
     HexagonalGridGenerator.Settings settings,
