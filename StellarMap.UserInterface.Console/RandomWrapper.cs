@@ -2,10 +2,14 @@
 
 namespace StellarMap.UserInterface.Console;
 
-internal class RandomWrapper(int seed) : IGenerator<double>
+internal class RandomWrapper<TOut>(Random random, Func<Random, TOut> function) : IGenerator<TOut>
 {
-    public double Generate()
-        => _random.NextDouble();
+    public TOut Generate()
+        => function.Invoke(random);
+}
 
-    private readonly Random _random = new(seed);
+internal class RandomWrapper<TOut, TIn>(Random random, Func<Random, TIn, TOut> function) : IGenerator<TOut, TIn>
+{
+    public TOut Generate(TIn input)
+        => function.Invoke(random, input);
 }

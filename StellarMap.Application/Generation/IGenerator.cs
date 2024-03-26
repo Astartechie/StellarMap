@@ -1,8 +1,8 @@
 ﻿namespace StellarMap.Application.Generation;
 
-public interface IGenerator<out T>
+public interface IGenerator<out TOut>
 {
-    T Generate();
+    TOut Generate();
 }
 
 public interface IGenerator<out TOut, in TIn>

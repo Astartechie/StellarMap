@@ -13,6 +13,8 @@ public class Colour : ValueObject<Colour>
     public static class Defined
     {
         public static readonly Colour Black = Create(0, 0, 0);
+        public static readonly Colour White = Create(255, 255, 255);
+        public static readonly Colour None = Create(0, 0, 0, 0);
     }
 
     public static Colour Create(byte red, byte green, byte blue, byte alpha = DefaultAlpha)
