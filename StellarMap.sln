@@ -5,6 +5,10 @@ VisualStudioVersion = 17.9.34701.34
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StellarMap.Domain", "StellarMap.Domain\StellarMap.Domain.csproj", "{32893FEE-2B0A-4AAB-8515-7FE379294B9C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StellarMap.Application", "StellarMap.Application\StellarMap.Application.csproj", "{EA239263-94B5-4709-8BAA-03712F23FFE1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StellarMap.UserInterface.Console", "StellarMap.UserInterface.Console\StellarMap.UserInterface.Console.csproj", "{9281F0BF-6CCF-49E5-BFB5-B50CE6CF877B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{32893FEE-2B0A-4AAB-8515-7FE379294B9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32893FEE-2B0A-4AAB-8515-7FE379294B9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32893FEE-2B0A-4AAB-8515-7FE379294B9C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA239263-94B5-4709-8BAA-03712F23FFE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA239263-94B5-4709-8BAA-03712F23FFE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA239263-94B5-4709-8BAA-03712F23FFE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA239263-94B5-4709-8BAA-03712F23FFE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9281F0BF-6CCF-49E5-BFB5-B50CE6CF877B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9281F0BF-6CCF-49E5-BFB5-B50CE6CF877B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9281F0BF-6CCF-49E5-BFB5-B50CE6CF877B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9281F0BF-6CCF-49E5-BFB5-B50CE6CF877B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
