@@ -36,7 +36,7 @@ public class HexagonalGridRenderer(IRenderTarget renderTarget, HexagonalGridRend
 
                     var start = midPoint - (normalised * 2) + PerpendicularClockwise(normalised) * (settings.HexSize / 2 - 1);
                     var end = midPoint - (normalised * 2) + PerpendicularCounterClockwise(normalised) * (settings.HexSize / 2 - 1);
-                    graphics.DrawLine(start, end, Pen.Create(1, Colour.Create(255, 0, 0)));
+                    graphics.DrawLine(start, end, Pen.Create(1, tile.Owner.BorderColour));
                 }
             }
 
