@@ -9,7 +9,7 @@ public class Tile(SolarSystem system, Faction owner)
     public Faction Owner { get; private set; } = owner;
 
     public bool IsEmpty()
-        => System.Id != SolarSystem.Empty.Id;
+        => System.Id == SolarSystem.Empty.Id;
 
     public bool IsOwned()
         => Owner.Id != Faction.None.Id;
