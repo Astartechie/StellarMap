@@ -11,6 +11,7 @@ using StellarMap.Domain.Galaxies.Mapping;
 using StellarMap.UserInterface.Console.Generation.Generators;
 using StellarMap.UserInterface.Console.Providing;
 using StellarMap.UserInterface.Console.Providing.Galaxies;
+using StellarMap.UserInterface.Console.Providing.Galaxies.Mapping;
 using StellarMap.UserInterface.Console.Rendering;
 using StellarMap.UserInterface.Console.Rendering.ScalableVectorGraphics;
 
@@ -20,7 +21,7 @@ internal class Program(IHexagonalGridGenerator hexagonalGridGenerator, IRenderer
 {
     private static void Main()
     {
-        var radius = 1;
+        var radius = 50;
         var hexSize = 20f;
 
         var serviceCollection = new ServiceCollection();
@@ -55,6 +56,9 @@ internal class Program(IHexagonalGridGenerator hexagonalGridGenerator, IRenderer
         serviceCollection.AddSingleton<IHexagonalGridGenerator, HexagonalGridGenerator>();
 
         //Providers
+        serviceCollection.AddSingleton<IReader<FactionProvider>>(new FileWrapper<FactionProvider>("Assets\\Factions.csv"));
+        serviceCollection.AddSingleton<IProvider<IList<Faction>>, FactionProvider>();
+
         serviceCollection.AddSingleton<IReader<StarClassificationProvider>>(new FileWrapper<StarClassificationProvider>("Assets\\Star Classifications.csv"));
         serviceCollection.AddSingleton<IProvider<WeightedList<StarClassification>>, StarClassificationProvider>();
 

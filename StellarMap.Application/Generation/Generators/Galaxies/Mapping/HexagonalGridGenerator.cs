@@ -4,11 +4,11 @@ using StellarMap.Domain.Galaxies.Mapping;
 namespace StellarMap.Application.Generation.Generators.Galaxies.Mapping;
 
 public class HexagonalGridGenerator(
-    HexagonalGridGenerator.Settings settings,
     IStellarNoise stellarNoise,
-    IStarGenerator starGenerator) : IHexagonalGridGenerator
+    IStarGenerator starGenerator,
+    IProvider<IList<Faction>> factionProvider,
+    HexagonalGridGenerator.Settings settings) : IHexagonalGridGenerator
 {
-
     private const int MinimumStarCount = 36; // Value determined by what looked right
 
     public class Settings(int radius)
@@ -18,6 +18,7 @@ public class HexagonalGridGenerator(
 
     public HexagonalGrid Generate()
     {
+        var factions = factionProvider.Provide();
         var grid = new HexagonalGrid(new Dictionary<Coordinate, Tile>());
         foreach (var position in HexagonalGrid.GetCoordinatesInRadius(settings.Radius))
         {
@@ -29,7 +30,7 @@ public class HexagonalGridGenerator(
             }
 
             var star = starGenerator.Generate();
-            grid.SetTile(position, new Tile(new SolarSystem(SolarSystemId.Create(Guid.NewGuid()), [star]), Faction.None));
+            grid.SetTile(position, new Tile(new SolarSystem(SolarSystemId.Create(Guid.NewGuid()), [star]), factions.First()));
         }
 
         return grid;
