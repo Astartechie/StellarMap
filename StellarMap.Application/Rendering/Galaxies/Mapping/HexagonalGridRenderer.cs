@@ -16,14 +16,33 @@ public class HexagonalGridRenderer(IRenderTarget renderTarget, HexagonalGridRend
     {
         var graphics = renderTarget.Start(settings.Width, settings.Height);
         graphics.FillRectangle(0, 0, settings.Width, settings.Height, Brush.Create(Colour.Defined.Black));
-        foreach (var entry in input.Tiles)
+        foreach (var (position, tile) in input.Tiles)
         {
-            var centerPoint = ToPoint(entry.Key);
+            var centerPoint = ToPoint(position);
             var hexagon = Hexagon(centerPoint, settings.HexSize);
 
-            if (entry.Value.System.Id != SolarSystem.Empty.Id)
+            if (tile.IsOwned())
             {
-                foreach (var star in entry.Value.System.Stars)
+                graphics.FillPolygon(hexagon, Brush.Create(tile.Owner.FillColour));
+
+                foreach (var (neighbouringPosition, neighbouringTile) in input.GetNeighbouringTiles(position))
+                {
+                    if (neighbouringTile.Owner.Id == tile.Owner.Id) continue;
+                    var neighbouringCenterPoint = ToPoint(neighbouringPosition);
+                    var direction = neighbouringCenterPoint - centerPoint;
+
+                    var midPoint = centerPoint + direction / 2;
+                    var normalised = Normalize(direction);
+
+                    var start = midPoint - (normalised * 2) + PerpendicularClockwise(normalised) * (settings.HexSize / 2 - 1);
+                    var end = midPoint - (normalised * 2) + PerpendicularCounterClockwise(normalised) * (settings.HexSize / 2 - 1);
+                    graphics.DrawLine(start, end, Pen.Create(1, Colour.Create(255, 0, 0)));
+                }
+            }
+
+            if (!tile.IsEmpty())
+            {
+                foreach (var star in tile.System.Stars)
                 {
                     graphics.FillCircle(centerPoint, (float)(star.Size.Value / StarSize.Maximum.Value * settings.HexSize), Brush.Create(star.Classification.Colour));
                 }
@@ -34,6 +53,15 @@ public class HexagonalGridRenderer(IRenderTarget renderTarget, HexagonalGridRend
 
         renderTarget.End();
     }
+
+    private static Point Normalize(Point position)
+        => position / (float)position.Length();
+
+    private static Point PerpendicularClockwise(Point position)
+        => Point.Create(position.Y, -position.X);
+
+    private static Point PerpendicularCounterClockwise(Point position)
+        => Point.Create(-position.Y, position.X);
 
     private IList<Point> Hexagon(Point center, float sideLength)
     {

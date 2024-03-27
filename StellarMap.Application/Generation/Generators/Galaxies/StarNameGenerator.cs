@@ -2,10 +2,10 @@
 
 namespace StellarMap.Application.Generation.Generators.Galaxies;
 
-public class StarNameGenerator : IStarNameGenerator
+public class StarNameGenerator(MarkovNameGenerator markovNameGenerator) : IStarNameGenerator
 {
     public Name Generate()
     {
-        return Name.None;
+        return Name.Create(markovNameGenerator.GenerateName(3, 10));
     }
 }

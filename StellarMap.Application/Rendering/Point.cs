@@ -22,11 +22,13 @@ public class Point : ValueObject<Point>
     public static Point operator -(Point left, Point right)
         => new(left.X - right.X, left.Y - right.Y);
 
-    public static Point operator /(Point left, int right)
+    public static Point operator /(Point left, float right)
         => new(left.X / right, left.Y / right);
 
-    public static Point operator *(Point left, int right)
+    public static Point operator *(Point left, float right)
         => new(left.X * right, left.Y * right);
+    public double Length()
+        => Math.Sqrt(Math.Pow(X, 2) + Math.Pow(Y, 2));
 
     protected override IEnumerable<object?> GetEqualityComponents()
     {

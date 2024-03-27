@@ -20,7 +20,7 @@ internal class Program(IHexagonalGridGenerator hexagonalGridGenerator, IRenderer
 {
     private static void Main()
     {
-        var radius = 50;
+        var radius = 1;
         var hexSize = 20f;
 
         var serviceCollection = new ServiceCollection();
@@ -37,6 +37,10 @@ internal class Program(IHexagonalGridGenerator hexagonalGridGenerator, IRenderer
         serviceCollection.AddSingleton<IGenerator<Weighting>, WeightingGenerator>();
 
         //Star Generation
+        var markovNameGenerator = new MarkovNameGenerator(random);
+        markovNameGenerator.BuildTransitionTable(File.ReadLines("Assets\\Star Names.txt"));
+        serviceCollection.AddSingleton(markovNameGenerator);
+
         serviceCollection.AddSingleton<IStarIdGenerator, StarIdGenerator>();
         serviceCollection.AddSingleton<IStarNameGenerator, StarNameGenerator>();
         serviceCollection.AddSingleton<IStarClassificationGenerator, StarClassificationGenerator>();

@@ -5,6 +5,19 @@ namespace StellarMap.UserInterface.Console.Rendering.ScalableVectorGraphics
 {
     internal class Graphics(IWriter writer) : IGraphics
     {
+        public void DrawLine(Point start, Point end, Pen pen)
+        {
+            if (pen == Pen.Defined.None) return;
+
+            var builder = new StringBuilder();
+            builder.Append($"<line x1=\"{start.X}\" y1=\"{start.Y}\" x2=\"{end.X}\" y2=\"{end.Y}\"");
+
+            AddPen(builder, pen);
+            builder.Append("/>");
+
+            writer.WriteLine(builder.ToString());
+        }
+
         public void DrawCircle(Point center, float radius, Pen pen)
             => DrawAndFillCircle(center, radius, pen, Brush.Defined.None);
 
@@ -82,7 +95,7 @@ namespace StellarMap.UserInterface.Console.Rendering.ScalableVectorGraphics
         private static bool IsVisible(Pen pen, Brush brush)
             => pen != Pen.Defined.None || brush != Brush.Defined.None;
 
-        private static void AddPenAndBrush(StringBuilder builder, Pen pen, Brush brush)
+        private static void AddPen(StringBuilder builder, Pen pen)
         {
             if (pen != Pen.Defined.None)
             {
@@ -92,6 +105,11 @@ namespace StellarMap.UserInterface.Console.Rendering.ScalableVectorGraphics
             {
                 builder.Append(" stroke=\"none\"");
             }
+        }
+
+        private static void AddPenAndBrush(StringBuilder builder, Pen pen, Brush brush)
+        {
+            AddPen(builder, pen);
 
             if (brush != Brush.Defined.None)
             {

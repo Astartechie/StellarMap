@@ -2,6 +2,7 @@
 
 public interface IGraphics
 {
+    void DrawLine(Point start, Point end, Pen pen);
     void DrawCircle(Point center, float radius, Pen pen);
     void FillCircle(Point center, float radius, Brush brush);
     void DrawAndFillCircle(Point center, float radius, Pen pen, Brush brush);
