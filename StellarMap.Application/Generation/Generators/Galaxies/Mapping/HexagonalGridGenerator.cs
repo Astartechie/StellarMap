@@ -37,6 +37,9 @@ public class HexagonalGridGenerator(
         var available = new HashSet<Coordinate>(grid.Tiles.Keys);
         var players = new List<Player>();
 
+
+        var minClaims = available.Count / settings.Radius;
+        var maxClaims = available.Count / (settings.Radius / 2);
         foreach (var faction in factions)
         {
             var bestStartingPosition = available.Where(x => !grid.GetTile(x).IsEmpty()).MaxBy(position => StartingScore(position, players));
@@ -44,7 +47,7 @@ public class HexagonalGridGenerator(
             var tile = grid.GetTile(bestStartingPosition);
             tile.ChangeOwner(faction);
 
-            players.Add(new Player(faction, bestStartingPosition, [bestStartingPosition], intGenerator.Generate((100,250))));
+            players.Add(new Player(faction, bestStartingPosition, [bestStartingPosition], intGenerator.Generate((minClaims, maxClaims))));
         }
 
         var outs = new List<Player>();
@@ -138,8 +141,9 @@ public class HexagonalGridGenerator(
 
     private double CalculateCost(Player player, Coordinate position, Tile tile)
     {
-        var score = (player.StartingPosition - position).Length();
-        score *= tile.IsEmpty() ? 1.5 : 1;
+        var score = 0;
+        score += intGenerator.Generate((1, (int)(player.StartingPosition - position).Length()));
+        score *= tile.IsEmpty() ? 2 : 1;
         return score;
     }
 }
