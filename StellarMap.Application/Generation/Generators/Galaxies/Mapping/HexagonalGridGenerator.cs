@@ -30,10 +30,17 @@ public class HexagonalGridGenerator(
                 continue;
             }
 
-            var star = starGenerator.Generate();
-            grid.SetTile(position, new Tile(new SolarSystem(SolarSystemId.Create(Guid.NewGuid()), [star]), Faction.None));
-        }
+            var numStars = starCount / MinimumStarCount;
 
+            var stars = new List<Star>();
+            for (var index = 0; index < numStars; index++)
+            {
+                stars.Add(starGenerator.Generate());
+            }
+
+            grid.SetTile(position, new Tile(new SolarSystem(SolarSystemId.Create(Guid.NewGuid()), stars), Faction.None));
+        }
+        
         var available = new HashSet<Coordinate>(grid.Tiles.Keys);
         var players = new List<Player>();
 

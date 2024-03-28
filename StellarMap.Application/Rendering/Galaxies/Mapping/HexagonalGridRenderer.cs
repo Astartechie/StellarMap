@@ -42,9 +42,23 @@ public class HexagonalGridRenderer(IRenderTarget renderTarget, HexagonalGridRend
 
             if (!tile.IsEmpty())
             {
+                var angle = 2 * Math.PI / tile.System.Stars.Count;
+                var maxSize = settings.HexSize / tile.System.Stars.Count;
+
+                var index = 0;
                 foreach (var star in tile.System.Stars)
                 {
-                    graphics.FillCircle(centerPoint, (float)(star.Size.Value / StarSize.Maximum.Value * settings.HexSize), Brush.Create(star.Classification.Colour));
+                    var starCenterPoint = centerPoint;
+                    if (tile.System.Stars.Count > 1)
+                    {
+                        var xOffset = Math.Cos(angle * index) * (settings.HexSize / 2);
+                        var yOffset = Math.Sin(angle * index) * (settings.HexSize / 2);
+
+                        starCenterPoint += Point.Create((float)xOffset, (float)yOffset);
+                    }
+
+                    graphics.FillCircle(starCenterPoint, (float)Math.Min(star.Size.Value / StarSize.Maximum.Value * settings.HexSize, maxSize), Brush.Create(star.Classification.Colour));
+                    index++;
                 }
             }
 
