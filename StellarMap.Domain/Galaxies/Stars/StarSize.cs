@@ -1,4 +1,4 @@
-﻿namespace StellarMap.Domain.Galaxies;
+﻿namespace StellarMap.Domain.Galaxies.Stars;
 
 public class StarSize : SingleValueObject<StarSize, double>
 {

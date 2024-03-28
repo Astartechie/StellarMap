@@ -1,16 +1,22 @@
-﻿using StellarMap.Domain.Galaxies;
+﻿using StellarMap.Application.Generation.Generators.Galaxies.Planets;
+using StellarMap.Application.Generation.Generators.Galaxies.Stars;
+using StellarMap.Domain.Galaxies;
 using StellarMap.Domain.Galaxies.Mapping;
+using StellarMap.Domain.Galaxies.Planets;
+using StellarMap.Domain.Galaxies.Stars;
 
 namespace StellarMap.Application.Generation.Generators.Galaxies.Mapping;
 
 public class HexagonalGridGenerator(
     IStellarNoise stellarNoise,
     IStarGenerator starGenerator,
+    IPlanetGenerator planetGenerator,
     IRandomIntGenerator intGenerator,
     IProvider<IList<Faction>> factionProvider,
     HexagonalGridGenerator.Settings settings) : IHexagonalGridGenerator
 {
     private const int MinimumStarCount = 36; // Value determined by what looked right
+    private const int PlanetRatio = 10;
 
     public class Settings(int radius)
     {
@@ -31,16 +37,22 @@ public class HexagonalGridGenerator(
             }
 
             var numStars = starCount / MinimumStarCount;
-
             var stars = new List<Star>();
             for (var index = 0; index < numStars; index++)
             {
                 stars.Add(starGenerator.Generate());
             }
 
-            grid.SetTile(position, new Tile(new SolarSystem(SolarSystemId.Create(Guid.NewGuid()), stars), Faction.None));
+            var numPlanets = intGenerator.Generate((1, starCount / PlanetRatio));
+            var planets = new List<Planet>();
+            for (var index = 0; index < numPlanets; index++)
+            {
+                planets.Add(planetGenerator.Generate());
+            }
+
+            grid.SetTile(position, new Tile(new SolarSystem(SolarSystemId.Create(Guid.NewGuid()), stars, planets), Faction.None));
         }
-        
+
         var available = new HashSet<Coordinate>(grid.Tiles.Keys);
         var players = new List<Player>();
 

@@ -2,6 +2,7 @@
 using StellarMap.Application.Generation;
 using StellarMap.Domain.Galaxies;
 using StellarMap.Domain.Galaxies.Mapping;
+using StellarMap.Domain.Galaxies.Stars;
 
 namespace StellarMap.UserInterface.Console.Providing.Galaxies;
 

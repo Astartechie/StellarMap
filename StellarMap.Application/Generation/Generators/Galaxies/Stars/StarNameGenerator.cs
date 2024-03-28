@@ -1,6 +1,6 @@
 ﻿using StellarMap.Domain.Galaxies;
 
-namespace StellarMap.Application.Generation.Generators.Galaxies;
+namespace StellarMap.Application.Generation.Generators.Galaxies.Stars;
 
 public class StarNameGenerator(MarkovNameGenerator markovNameGenerator) : IStarNameGenerator
 {

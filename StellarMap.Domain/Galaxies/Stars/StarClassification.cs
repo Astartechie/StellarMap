@@ -1,6 +1,6 @@
 ﻿using StellarMap.Domain.Galaxies.Mapping;
 
-namespace StellarMap.Domain.Galaxies;
+namespace StellarMap.Domain.Galaxies.Stars;
 
 public class StarClassification(StarClassificationId id, Colour colour, Range<StarSize> sizes) : Entity<StarClassificationId>(id)
 {

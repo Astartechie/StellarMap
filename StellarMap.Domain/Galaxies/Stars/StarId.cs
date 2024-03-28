@@ -1,4 +1,4 @@
-﻿namespace StellarMap.Domain.Galaxies;
+﻿namespace StellarMap.Domain.Galaxies.Stars;
 
 public class StarId : SingleValueObject<StarId, Guid>
 {

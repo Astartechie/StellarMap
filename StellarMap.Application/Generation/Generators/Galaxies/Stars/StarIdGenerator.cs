@@ -1,7 +1,6 @@
-﻿using StellarMap.Application.Generation.Generators;
-using StellarMap.Domain.Galaxies;
+﻿using StellarMap.Domain.Galaxies.Stars;
 
-namespace StellarMap.Application.Generation.Generators.Galaxies;
+namespace StellarMap.Application.Generation.Generators.Galaxies.Stars;
 
 public class StarIdGenerator(IRandomGuidGenerator guidGenerator) : IStarIdGenerator
 {
